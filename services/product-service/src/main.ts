@@ -1,6 +1,8 @@
 import "reflect-metadata";
 import dataSource from "./db";
 import { Server, ServerCredentials } from "@grpc/grpc-js";
+import { getProductServer } from "./server";
+import { ProductServiceService } from "@nodejs-microservices/protos/dist/product/product";
 
 const server = new Server();
 
@@ -11,7 +13,8 @@ const address = `${HOST}:${PORT}`;
 
 dataSource
   .initialize()
-  .then(() => {
+  .then((db) => {
+    server.addService(ProductServiceService, getProductServer(db));
     server.bindAsync(
       address,
       ServerCredentials.createInsecure(),
