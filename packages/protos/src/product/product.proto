@@ -38,7 +38,7 @@ message ListProductsRequest {
 }
 
 message ListProductsResponse {
-  repeated Product Products = 1;
+  repeated Product products = 1;
 }
 
 service ProductService {
