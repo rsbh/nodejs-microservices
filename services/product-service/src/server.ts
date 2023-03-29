@@ -35,13 +35,47 @@ export function getProductServer(db: DataSource): ProductServiceServer {
     call: ServerUnaryCall<GetProductRequest, GetProductResponse>,
     callback: sendUnaryData<GetProductResponse>
   ) {
-    callback({ code: status.UNIMPLEMENTED }, null);
+    try {
+      const product = await ProductController.getProduct(db, call.request.id);
+      if (product) {
+        const productPB = Product.fromJSON(product);
+        const response: GetProductResponse = {
+          product: productPB,
+        };
+        callback(null, response);
+      } else {
+        callback(
+          {
+            code: status.NOT_FOUND,
+            message: `Product ${call.request.id} not found`,
+          },
+          null
+        );
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        callback(err, null);
+      }
+      console.error(err);
+    }
   }
   async function listProducts(
     call: ServerUnaryCall<ListProductsRequest, ListProductsResponse>,
     callback: sendUnaryData<ListProductsResponse>
   ) {
-    callback({ code: status.UNIMPLEMENTED }, null);
+    try {
+      const products = await ProductController.listProducts(db);
+      const productsPB = products.map(Product.fromJSON);
+      const response: ListProductsResponse = {
+        products: productsPB,
+      };
+      callback(null, response);
+    } catch (err) {
+      if (err instanceof Error) {
+        callback(err, null);
+      }
+      console.error(err);
+    }
   }
 
   return {

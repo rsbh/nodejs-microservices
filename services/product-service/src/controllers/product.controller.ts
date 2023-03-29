@@ -20,3 +20,16 @@ export const createProduct = async (
   product.tags = req.tags;
   return productRepository.save(product);
 };
+
+export const listProducts = async (db: DataSource): Promise<Product[]> => {
+  const productRepository = db.getRepository(Product);
+  return productRepository.find();
+};
+
+export const getProduct = async (
+  db: DataSource,
+  id: number
+): Promise<Product | null> => {
+  const productRepository = db.getRepository(Product);
+  return productRepository.findOneBy({ id: id });
+};
