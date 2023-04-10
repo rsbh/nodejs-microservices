@@ -25,9 +25,7 @@ export function getProductServer(db: DataSource): ProductServiceServer {
       };
       callback(null, response);
     } catch (err) {
-      if (err instanceof Error) {
-        callback(err, null);
-      }
+      callback({ code: status.INTERNAL }, null);
       console.error(err);
     }
   }
@@ -53,9 +51,7 @@ export function getProductServer(db: DataSource): ProductServiceServer {
         );
       }
     } catch (err) {
-      if (err instanceof Error) {
-        callback(err, null);
-      }
+      callback({ code: status.INTERNAL }, null);
       console.error(err);
     }
   }
@@ -71,9 +67,7 @@ export function getProductServer(db: DataSource): ProductServiceServer {
       };
       callback(null, response);
     } catch (err) {
-      if (err instanceof Error) {
-        callback(err, null);
-      }
+      callback({ code: status.INTERNAL }, null);
       console.error(err);
     }
   }
