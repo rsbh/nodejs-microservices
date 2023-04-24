@@ -10,9 +10,7 @@
   "author": "",
   "license": "ISC",
   "workspaces": [
-    "packages/protos",
-    "services/product-service",
-    "services/test-client"
+    "services/*"
   ],
   "dependencies": {
     "@changesets/cli": "^2.26.1"

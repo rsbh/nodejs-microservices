@@ -2,7 +2,7 @@ import { credentials } from "@grpc/grpc-js";
 import {
   CreateProductRequest,
   ProductServiceClient,
-} from "@nodejs-microservices/protos/dist/product/product";
+} from "@rsbh-nodejs-microservices/protos/product/product";
 
 const PRODUCT_SERVICE_URL = process.env.USER_SERVICE_URL || "0.0.0.0:50051";
 
