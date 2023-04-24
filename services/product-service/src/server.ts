@@ -8,7 +8,7 @@ import {
   ListProductsResponse,
   Product,
   ProductServiceServer,
-} from "@nodejs-microservices/protos/dist/product/product";
+} from "@rsbh-nodejs-microservices/protos/product/product";
 import { DataSource } from "typeorm";
 import * as ProductController from "./controllers/product.controller";
 

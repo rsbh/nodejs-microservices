@@ -18,6 +18,6 @@
   "license": "ISC",
   "dependencies": {
     "@grpc/grpc-js": "^1.8.13",
-    "@nodejs-microservices/protos": "^1.0.0"
+    "@rsbh-nodejs-microservices/protos": "^1.0.1"
   }
 }
