@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prebuild": "rimraf dist/ts && mkdirp dist/ts",
-    "build": "./build.sh",
+    "build": "./build.sh && tsc",
     "postbuild": "cp package.json ./dist/ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
