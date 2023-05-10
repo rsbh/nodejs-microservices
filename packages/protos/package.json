@@ -17,5 +17,9 @@
     "rimraf": "^5.0.0",
     "ts-proto": "^1.145.0",
     "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.8.14",
+    "protobufjs": "^7.2.3"
   }
 }
