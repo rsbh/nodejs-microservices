@@ -1,4 +1,4 @@
-# @nodejs-microservices/test-client
+# @rsbh-nodejs-microservices/test-client
 
 ## 1.0.1
 

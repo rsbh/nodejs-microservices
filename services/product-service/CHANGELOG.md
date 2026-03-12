@@ -1,4 +1,4 @@
-# @nodejs-microservices/product-service
+# @rsbh-nodejs-microservices/product-service
 
 ## 1.0.1
 
