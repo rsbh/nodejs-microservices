@@ -1,5 +1,5 @@
 {
-  "name": "@nodejs-microservices/product-service",
+  "name": "@rsbh-nodejs-microservices/product-service",
   "version": "1.0.1",
   "description": "",
   "main": "index.js",
