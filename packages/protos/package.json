@@ -2,7 +2,10 @@
   "name": "@rsbh-nodejs-microservices/protos",
   "version": "2.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/ts/index.js",
+  "exports": {
+    "./*": "./dist/ts/*.js"
+  },
   "scripts": {
     "prebuild": "rimraf dist/ts && mkdirp dist/ts",
     "build": "./build.sh && tsc",
@@ -13,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^20.19.37",
     "mkdirp": "^3.0.0",
     "rimraf": "^5.0.0",
     "ts-proto": "^1.145.0",
