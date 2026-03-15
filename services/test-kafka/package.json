@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@platformatic/kafka": "^1.30.0",
+    "@rsbh-nodejs-microservices/protos": "^2.1.0",
     "uuid": "^13.0.0"
   }
 }
