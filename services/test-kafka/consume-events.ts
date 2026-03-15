@@ -1,4 +1,5 @@
-import { Consumer, stringDeserializers } from "@platformatic/kafka";
+import { Consumer, stringDeserializer } from "@platformatic/kafka";
+import { ProductEvent } from "@rsbh-nodejs-microservices/protos/product/product";
 
 const BROKERS = (process.env.KAFKA_BROKERS || "localhost:9092").split(",");
 const CONSUMER_GROUP_ID = process.env.CONSUMER_GROUP_ID || "my-consumer-group";
@@ -7,25 +8,30 @@ const HOSTNAME = process.env.HOSTNAME || "local";
 
 const TOPIC = "product.created";
 
-// Create a consumer with string deserialisers
 const consumer = new Consumer({
   groupId: CONSUMER_GROUP_ID,
   clientId: `${SERVICE_NAME}-${HOSTNAME}`,
   bootstrapBrokers: BROKERS,
-  deserializers: stringDeserializers,
+  deserializers: {
+    key: stringDeserializer,
+    value: (value?: Buffer) => {
+      return value ? ProductEvent.decode(value) : ProductEvent.create();
+    },
+  },
 });
 
 async function main() {
   try {
     const stream = await consumer.consume({
       topics: [TOPIC],
-      sessionTimeout: 10000,
-      heartbeatInterval: 500,
       mode: "committed",
     });
 
     for await (const message of stream) {
-      console.log(`Received: ${message.key} ->`, message.value);
+      console.log(
+        `Received: ${message.key} ->`,
+        ProductEvent.toJSON(message.value)
+      );
       await message.commit();
     }
   } catch (err) {
