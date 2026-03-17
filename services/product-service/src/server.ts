@@ -10,7 +10,7 @@ import {
   ProductServiceServer,
 } from "@rsbh-nodejs-microservices/protos/product/product";
 import { DataSource } from "typeorm";
-import * as ProductController from "./controllers/product.controller";
+import * as ProductController from "./controllers/product.controller.js";
 
 export function getProductServer(db: DataSource): ProductServiceServer {
   async function createProduct(

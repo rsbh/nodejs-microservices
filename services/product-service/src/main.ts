@@ -1,7 +1,7 @@
 import "reflect-metadata";
-import dataSource from "./db";
+import dataSource from "./db/index.js";
 import { Server, ServerCredentials } from "@grpc/grpc-js";
-import { getProductServer } from "./server";
+import { getProductServer } from "./server.js";
 import { ProductServiceService } from "@rsbh-nodejs-microservices/protos/product/product";
 
 const server = new Server();
