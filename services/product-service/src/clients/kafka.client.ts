@@ -34,4 +34,8 @@ export class KafkaClient {
       throw err;
     }
   }
+
+  public async close() {
+    return this.producer.close();
+  }
 }
