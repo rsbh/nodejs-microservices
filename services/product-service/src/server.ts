@@ -15,6 +15,7 @@ import {
   ProductEventType,
   ProductEvent,
 } from "@rsbh-nodejs-microservices/protos/product/product";
+import { v4 as uuid } from "uuid";
 import type { KafkaClient } from "./clients/kafka.client.js";
 
 const TOPICS = {
@@ -37,7 +38,7 @@ export function getProductServer(
       };
 
       const event = ProductEvent.create({
-        id: product.id.toString(),
+        id: uuid(),
         type: ProductEventType.PRODUCT_EVENT_TYPE_CREATED,
         product: productPB,
         timestamp: new Date(),
@@ -45,7 +46,7 @@ export function getProductServer(
 
       await kafkaClient.publishEvent(
         TOPICS.PRODUCT_CREATED,
-        event.id,
+        product.id.toString(),
         Buffer.from(ProductEvent.encode(event).finish())
       );
       callback(null, response);
