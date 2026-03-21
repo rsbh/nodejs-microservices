@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm";
-import { Product } from "../models/product";
+import { Product } from "../models/product.js";
 
 interface createProductReq {
   name: string;

@@ -10,9 +10,22 @@ import {
   ProductServiceServer,
 } from "@rsbh-nodejs-microservices/protos/product/product";
 import { DataSource } from "typeorm";
-import * as ProductController from "./controllers/product.controller";
+import * as ProductController from "./controllers/product.controller.js";
+import {
+  ProductEventType,
+  ProductEvent,
+} from "@rsbh-nodejs-microservices/protos/product/product";
+import { v4 as uuid } from "uuid";
+import type { KafkaClient } from "./clients/kafka.client.js";
 
-export function getProductServer(db: DataSource): ProductServiceServer {
+const TOPICS = {
+  PRODUCT_CREATED: "product.created",
+} as const;
+
+export function getProductServer(
+  db: DataSource,
+  kafkaClient: KafkaClient
+): ProductServiceServer {
   async function createProduct(
     call: ServerUnaryCall<CreateProductRequest, CreateProductResponse>,
     callback: sendUnaryData<CreateProductResponse>
@@ -23,6 +36,19 @@ export function getProductServer(db: DataSource): ProductServiceServer {
       const response: CreateProductResponse = {
         product: productPB,
       };
+
+      const event = ProductEvent.create({
+        id: uuid(),
+        type: ProductEventType.PRODUCT_EVENT_TYPE_CREATED,
+        product: productPB,
+        timestamp: new Date(),
+      });
+
+      await kafkaClient.publishEvent(
+        TOPICS.PRODUCT_CREATED,
+        product.id.toString(),
+        Buffer.from(ProductEvent.encode(event).finish())
+      );
       callback(null, response);
     } catch (err) {
       callback({ code: status.INTERNAL }, null);
